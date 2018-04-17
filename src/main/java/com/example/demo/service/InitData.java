@@ -18,26 +18,65 @@ public class InitData {
     private EntityManager em;
 
     public void insertTestData() {
+        Client client1 = newClient("PETRI;LLO", "Alexandre", 30);
+        em.persist(client1);
 
-        Client client  = new Client();
-        client.setNom("PETRILLO");
-        client.setPrenom("Alexandre");
-        em.persist(client);
+        Client client2 = newClient("Dupont", "Jérome", 40);
+        em.persist(client2);
+        
+        Client client3 = newClient("SAYADI", "Manel", 35);
+        em.persist(client3);
 
+        Article article1 = newArticle("Carte mère ASROCK 2345", 79.90);
+        em.persist(article1);
+
+        Article article2 = newArticle("Clé USB", 9.90);
+        em.persist(article2);
+        
+        Article article3 = newArticle("ordinateur", 800);
+        em.persist(article3);
+
+        {
+            Facture facture = newFacture(client1);
+            em.persist(facture);
+            em.persist(newLigneFacture(article1, facture, 1));
+        }
+        {
+            Facture facture = newFacture(client1);
+            em.persist(facture);
+            em.persist(newLigneFacture(article1, facture, 1));
+            em.persist(newLigneFacture(article2, facture, 5));
+            em.persist(newLigneFacture(article3, facture, 1));
+        }
+    }
+
+    private Client newClient(String nom, String prenom, int age) {
+        Client client = new Client();
+        client.setNom(nom);
+        client.setPrenom(prenom);
+        client.setAge(age);
+        return client;
+    }
+
+    private Article newArticle(String libelle, double prix) {
         Article article = new Article();
-        article.setLibelle("Carte mère ASROCK 2345");
-        article.setPrix(79.90);
-        em.persist(article);
+        article.setLibelle(libelle);
+        article.setPrix(prix);
+        return article;
+    }
 
+    private Facture newFacture(Client client) {
         Facture facture = new Facture();
         facture.setClient(client);
-        em.persist(facture);
+        return facture;
+    }
 
+    private LigneFacture newLigneFacture(Article article, Facture facture, int quantite) {
         LigneFacture ligneFacture1 = new LigneFacture();
         ligneFacture1.setFacture(facture);
         ligneFacture1.setArticle(article);
-        ligneFacture1.setQuantite(1);
-        em.persist(ligneFacture1);
-
+        ligneFacture1.setQuantite(quantite);
+        return ligneFacture1;
     }
 }
+

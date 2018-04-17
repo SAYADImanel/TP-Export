@@ -17,6 +17,10 @@ public class Client {
 
     @Column
     private String nom;
+    
+    @Column
+    private int age ;
+
 
     public Long getId() {
         return id;
@@ -40,5 +44,13 @@ public class Client {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    
+    public int getAge( ) {
+    	return age;
+    }
+    
+    public void setAge(int age) {
+    	this.age = age;
     }
 }

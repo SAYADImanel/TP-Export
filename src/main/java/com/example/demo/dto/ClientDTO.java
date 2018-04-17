@@ -9,6 +9,8 @@ public class ClientDTO {
     private String prenom;
 
     private String nom;
+    
+    private int age;
 
     public String getPrenom() {
         return prenom;
@@ -24,5 +26,13 @@ public class ClientDTO {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
