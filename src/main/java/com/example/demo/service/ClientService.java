@@ -21,5 +21,13 @@ public class ClientService {
 
     public List<ClientDTO> findAllClients() {
         return clientRepository.findAll().stream().map(c-> clientMapper.map(c)).collect(toList());
+        
+      
+    }
+    
+    public ClientDTO findById(Long id){
+    	return clientRepository.findById(id).map(c-> clientMapper.map(c))
+	      .orElseThrow(() ->
+	       new IllegalArgumentException("Facture inconnu " + id));
     }
 }

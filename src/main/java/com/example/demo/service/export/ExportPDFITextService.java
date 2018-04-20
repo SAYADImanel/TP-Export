@@ -22,7 +22,7 @@ public class ExportPDFITextService {
 		PdfWriter.getInstance (document, os);
 		document.open();
 		
-		document.add (new Paragraph ("Hello"));
+		document.add (new Paragraph ("Détail de la facture"));
 		
 		document.close();
 	

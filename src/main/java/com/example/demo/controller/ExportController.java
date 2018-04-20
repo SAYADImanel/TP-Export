@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ClientDTO;
 import com.example.demo.dto.FactureDTO;
+import com.example.demo.dto.LigneFactureDTO;
 import com.example.demo.service.ClientService;
 import com.example.demo.service.FactureService;
 import com.example.demo.service.export.ExportCSVService;
@@ -58,6 +59,7 @@ public class ExportController {
         List<ClientDTO> clients = clientService.findAllClients();
         exportXLSXService.export(response.getOutputStream(), clients);
     }  
+    
     @GetMapping("/factures/{id}/pdf")
     public void facturePDF(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
         response.setContentType("application/pdf");
@@ -67,5 +69,28 @@ public class ExportController {
         
         
     }
+    
+    @GetMapping("/client/xlsx")
+    public void clientsXLSX1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"client.xlsx\"");
+        
+        
+         
+    } 
+    
+    @GetMapping("/client/{id}/factures/xlsx")
+    public void facturesDUnClient(@PathVariable("id") Long clientId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + ".xlsx\"");
+        
+        ClientDTO client = clientService.findById(clientId);
+        List<FactureDTO> listFacture = factureService.findByClient(clientId);
+        
+         exportXLSXService.exportSeul(response.getOutputStream(), client, listFacture);
+               
+                
+                
+}
 
 }

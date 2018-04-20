@@ -49,4 +49,8 @@ public class FactureService {
                 new IllegalArgumentException("Facture inconnu " + id)
         );
     }
+    
+    public List<FactureDTO> findByClient(Long id) {
+        return factureRepository.findByClient(id);
+    }
 }

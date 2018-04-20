@@ -33,4 +33,10 @@ public class LigneFactureDTO {
     public void setPrixUnitaire(Double prixUnitaire) {
         this.prixUnitaire = prixUnitaire;
     }
+
+	public Double getPrixLigne() {
+	
+		return prixUnitaire*quantite;
+		
+	}
 }
